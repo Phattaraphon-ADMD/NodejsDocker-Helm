@@ -1,0 +1,73 @@
+# Default values for my-app-chart.
+# This is a YAML-formatted file.
+# Declare variables to be substituted into your templates.
+
+replicaCount: 2
+
+image:
+  # เปลี่ยนให้เป็น Docker Hub repository ของคุณ
+  repository: "phattaraphon1/nodejs-test-cicd"
+  pullPolicy: Always
+  # เปลี่ยนให้เป็น tag ที่คุณต้องการ
+  tag: "e5cf78c"
+
+# สำหรับ private Docker Hub registry
+imagePullSecrets:
+  - name: dockerhub-secret
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: my-app.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  # ตัวอย่าง resource limits และ requests
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Environment variables สำหรับแอปพลิเคชัน
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: PORT
+    value: "3000"
+
+# Docker Hub credentials - ใช้แค่สำหรับสร้าง Secret อัตโนมัติ (ไม่แนะนำใน production)
+# สำหรับ production ให้สร้าง secret แยกด้วย kubectl หรือ external secret management
+dockerhub:
+  # เปิดใช้การสร้าง secret อัตโนมัติ (false = ใช้ secret ที่มีอยู่แล้ว)
+  createSecret: false
+  # ข้อมูลเหล่านี้จะใช้เฉพาะเมื่อ createSecret: true
+  username: "your-dockerhub-username"
+  password: "your-dockerhub-password"
+  email: "your-email@example.com"
