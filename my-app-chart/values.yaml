@@ -25,30 +25,13 @@ service:
 
 ingress:
   enabled: true
-  className: "nginx"  # หรือ "traefik" ขึ้นอยู่กับ Ingress Controller ที่ใช้
-  annotations:
-    # สำหรับ NGINX Ingress Controller
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    # สำหรับ SSL Redirect (ถ้าต้องการ)
-    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    # สำหรับ Certificate Manager (ถ้าใช้ Let's Encrypt)
-    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  className: "nginx"
+  annotations: {}
   hosts:
     - host: my-app.local
       paths:
         - path: /
           pathType: Prefix
-    # เพิ่ม host อื่นๆ ตามต้องการ
-    # - host: myapp.example.com
-    #   paths:
-    #     - path: /
-    #       pathType: Prefix
-  tls: []
-    # ถ้าต้องการใช้ HTTPS
-    # - secretName: my-app-tls
-    #   hosts:
-    #     - my-app.local
-    #     - myapp.example.com
 
 resources:
   # ตัวอย่าง resource limits และ requests
