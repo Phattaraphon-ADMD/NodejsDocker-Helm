@@ -19,10 +19,11 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: NodePort
+  # ใช้ Ingress แล้วแนะนำให้เป็น ClusterIP (ไม่ต้องระบุ port ตอนเข้าเว็บ)
+  type: ClusterIP
   port: 80
   targetPort: 3000
-  nodePort: 30080
+  # nodePort: 30080 # เปิดใช้เมื่อ type: NodePort เท่านั้น (เช่น ต้องการ debug bypass ingress)
 
 ingress:
   enabled: true
