@@ -9,7 +9,7 @@ image:
   repository: "phattaraphon1/nodejs-test-cicd"
   pullPolicy: Always
   # เปลี่ยนให้เป็น tag ที่คุณต้องการ
-  tag: "e5cf78c"
+  tag: "f94268b"
 
 # สำหรับ private Docker Hub registry
 imagePullSecrets:
