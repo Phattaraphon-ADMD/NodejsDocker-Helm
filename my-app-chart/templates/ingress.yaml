@@ -7,10 +7,12 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "my-app-chart.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+    # ArgoCD annotations เพื่อไม่ให้รอ LoadBalancer
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- end }}
 spec:
   {{- if .Values.ingress.className }}
   ingressClassName: {{ .Values.ingress.className }}
