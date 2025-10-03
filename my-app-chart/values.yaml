@@ -33,6 +33,23 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+  # เพิ่มตัวอย่าง TLS (คอมเมนต์ไว้ก่อน ถ้าต้องการเปิดใช้งาน ให้สร้าง secret tls ชื่อ my-app-tls)
+  # tls:
+  #   - secretName: my-app-tls
+  #     hosts:
+  #       - my-app.local
+
+  # extraPaths: ใช้สำหรับเพิ่ม path อื่นที่ชี้ไป service อื่นก่อน paths หลักของแอปนี้
+  # ตัวอย่าง:
+  # extraPaths:
+  #   - path: /metrics
+  #     pathType: Prefix
+  #     backend:
+  #       service:
+  #         name: metrics-service
+  #         port:
+  #           number: 9100
+  extraPaths: []
 
 resources:
   # ตัวอย่าง resource limits และ requests
